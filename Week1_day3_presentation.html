@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 3: Content & Media</title>
+    <style>
+        /* (Copy the CSS from your sample here for consistency) */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #2196F3 0%, #21CBF3 100%);
+            color: white;
+            overflow: hidden;
+        }
+        .presentation-container {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        .slide {
+            display: none;
+            max-width: 1000px;
+            padding: 40px;
+            text-align: center;
+            animation: slideIn 0.5s ease-in-out;
+        }
+        .slide.active { display: block; }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        h1 { font-size: 3rem; margin-bottom: 20px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);}
+        h2 { font-size: 2.5rem; margin-bottom: 30px; color: #FFD700; }
+        h3 { font-size: 2rem; margin-bottom: 20px; color: #87CEEB; }
+        p, li { font-size: 1.3rem; line-height: 1.6; margin-bottom: 15px; }
+        ul { text-align: left; max-width: 700px; margin: 0 auto; }
+        li { margin-bottom: 10px; padding-left: 10px; }
+        .highlight {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .code-preview {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            text-align: left;
+            margin: 20px 0;
+            font-size: 1.1rem;
+        }
+        .code-output {
+            background: white;
+            color: #333;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: left;
+            border: 3px solid #FFD700;
+        }
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+        }
+        button {
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            color: white;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            background: white;
+            color: #2196F3;
+            transform: translateY(-2px);
+        }
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .slide-counter {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 1rem;
+        }
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+        .tag-example {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+        .demo-section {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation-container">
+        <div class="slide-counter">
+            <span id="current-slide">1</span> / <span id="total-slides">7</span>
+        </div>
+
+        <!-- Slide 1: Title -->
+        <div class="slide active">
+            <h1>🌐 Content & Media</h1>
+            <h2>Day 3: HTML Essentials</h2>
+            <div class="highlight">
+                <p style="font-size: 1.5rem;">Today: Lists, navigation, images, links, and organizing your files!</p>
+            </div>
+            <p><strong>Goal:</strong> Add structure, navigation, and media to your web pages</p>
+        </div>
+
+        <!-- Slide 2: Lists Overview -->
+        <div class="slide">
+            <h2>📝 Lists in HTML</h2>
+            <div class="two-column">
+                <div>
+                    <h3>Unordered List</h3>
+                    <div class="code-preview">
+&lt;ul&gt;
+    &lt;li&gt;Apples&lt;/li&gt;
+    &lt;li&gt;Bananas&lt;/li&gt;
+    &lt;li&gt;Cherries&lt;/li&gt;
+&lt;/ul&gt;
+                    </div>
+                </div>
+                <div>
+                    <h3>Ordered List</h3>
+                    <div class="code-preview">
+&lt;ol&gt;
+    &lt;li&gt;First&lt;/li&gt;
+    &lt;li&gt;Second&lt;/li&gt;
+    &lt;li&gt;Third&lt;/li&gt;
+&lt;/ol&gt;
+                    </div>
+                </div>
+            </div>
+            <div class="highlight">
+                <ul>
+                    <li><strong>&lt;ul&gt;:</strong> Unordered (bulleted) list</li>
+                    <li><strong>&lt;ol&gt;:</strong> Ordered (numbered) list</li>
+                    <li><strong>&lt;li&gt;:</strong> List item</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 3: Navigation with Lists -->
+        <div class="slide">
+            <h2>🔗 Navigation Menus</h2>
+            <div class="two-column">
+                <div>
+                    <h3>HTML Code:</h3>
+                    <div class="code-preview">
+&lt;nav&gt;
+    &lt;ul&gt;
+        &lt;li&gt;&lt;a href="index.html"&gt;Home&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="about.html"&gt;About&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="contact.html"&gt;Contact&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/nav&gt;
+                    </div>
+                </div>
+                <div>
+                    <h3>Browser Display:</h3>
+                    <div class="code-output">
+                        <nav>
+                            <ul style="list-style: none; padding: 0;">
+                                <li style="display: inline; margin-right: 20px;"><a href="#" style="color: #2196F3;">Home</a></li>
+                                <li style="display: inline; margin-right: 20px;"><a href="#" style="color: #2196F3;">About</a></li>
+                                <li style="display: inline;"><a href="#" style="color: #2196F3;">Contact</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <div class="highlight">
+                <p>Navigation menus are usually made with lists and <code>&lt;a&gt;</code> (anchor) tags inside a <code>&lt;nav&gt;</code> element.</p>
+            </div>
+        </div>
+
+        <!-- Slide 4: Adding Images -->
+        <div class="slide">
+            <h2>🖼️ Images in HTML</h2>
+            <div class="two-column">
+                <div>
+                    <h3>HTML Code:</h3>
+                    <div class="code-preview">
+&lt;img src="cat.jpg" alt="A cute cat"&gt;
+                    </div>
+                </div>
+                <div>
+                    <h3>Browser Display:</h3>
+                    <div class="code-output">
+                        <img src="https://placekitten.com/120/80" alt="A cute cat" style="max-width: 120px; border-radius: 8px;">
+                    </div>
+                </div>
+            </div>
+            <div class="highlight">
+                <ul>
+                    <li><strong>src:</strong> Path to the image file</li>
+                    <li><strong>alt:</strong> Description for screen readers or if image can't load</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 5: Links and Images as Links -->
+        <div class="slide">
+            <h2>🔗 Links (&lt;a&gt; tag)</h2>
+            <div class="two-column">
+                <div>
+                    <h3>HTML Code:</h3>
+                    <div class="code-preview">
+&lt;a href="https://example.com"&gt;Visit Example&lt;/a&gt;
+
+&lt;a href="cat.jpg"&gt;
+    &lt;img src="cat-thumb.jpg" alt="Cat"&gt;
+&lt;/a&gt;
+                    </div>
+                </div>
+                <div>
+                    <h3>Browser Display:</h3>
+                    <div class="code-output">
+                        <a href="https://example.com" style="color: #2196F3;">Visit Example</a><br><br>
+                        <a href="#"><img src="https://placekitten.com/60/40" alt="Cat" style="vertical-align: middle; border-radius: 4px;"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="highlight">
+                <ul>
+                    <li><strong>href:</strong> Destination URL or file path</li>
+                    <li>Images can be clickable by wrapping them in a link</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 6: File Organization and Paths -->
+        <div class="slide">
+            <h2>📁 File Organization & Paths</h2>
+            <div class="two-column">
+                <div>
+                    <h3>Typical Project Structure:</h3>
+                    <div class="code-preview">
+project/
+├── index.html
+├── about.html
+├── images/
+│   └── cat.jpg
+└── css/
+    └── style.css
+                    </div>
+                </div>
+                <div>
+                    <h3>Path Examples:</h3>
+                    <div class="code-preview">
+&lt;img src="images/cat.jpg" alt="Cat"&gt;
+&lt;link rel="stylesheet" href="css/style.css"&gt;
+                    </div>
+                </div>
+            </div>
+            <div class="highlight">
+                <ul>
+                    <li><strong>Relative path:</strong> from current file to target (e.g. <code>images/cat.jpg</code>)</li>
+                    <li><strong>Absolute path:</strong> full URL or from root (e.g. <code>/images/cat.jpg</code>)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 7: Recap -->
+        <div class="slide">
+            <h2>✅ Day 3 Recap</h2>
+            <ul>
+                <li>Create and style lists (&lt;ul&gt;, &lt;ol&gt;, &lt;li&gt;)</li>
+                <li>Build navigation menus with lists and links</li>
+                <li>Add images (&lt;img&gt;) and use <code>alt</code> for accessibility</li>
+                <li>Create links (&lt;a&gt;) and make images clickable</li>
+                <li>Organize files and use correct paths</li>
+            </ul>
+            <div class="highlight">
+                <p>Practice: Add a navigation menu and images to your project!</p>
+            </div>
+        </div>
+    </div>
+    <div class="navigation">
+        <button id="prev-slide" disabled>Previous</button>
+        <button id="next-slide">Next</button>
+    </div>
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        const prevBtn = document.getElementById('prev-slide');
+        const nextBtn = document.getElementById('next-slide');
+        const currentSlideSpan = document.getElementById('current-slide');
+        const totalSlidesSpan = document.getElementById('total-slides');
+        let currentSlide = 0;
+        totalSlidesSpan.textContent = slides.length;
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.toggle('active', i === index);
+            });
+            currentSlideSpan.textContent = index + 1;
+            prevBtn.disabled = index === 0;
+            nextBtn.disabled = index === slides.length - 1;
+        }
+
+        prevBtn.addEventListener('click', () => {
+            if (currentSlide > 0) {
+                currentSlide--;
+                showSlide(currentSlide);
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+                showSlide(currentSlide);
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') nextBtn.click();
+            if (e.key === 'ArrowLeft') prevBtn.click();
+        });
+    </script>
+</body>
+</html>
