@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 2: CSS Styling & Responsive Design</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .presentation-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .slide {
+            min-height: 100vh;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .slide.active {
+            display: flex;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide h1 {
+            font-size: 3.5rem;
+            margin-bottom: 30px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        .slide h2 {
+            font-size: 2.8rem;
+            margin-bottom: 25px;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .slide h3 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            color: #f0f0f0;
+        }
+
+        .slide p {
+            font-size: 1.3rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            max-width: 800px;
+        }
+
+        .learning-outcomes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .outcome-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .outcome-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .css-types {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin: 40px 0;
+            gap: 20px;
+        }
+
+        .css-type {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            padding: 25px;
+            min-width: 250px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .css-type h4 {
+            color: #4ecdc4;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+
+        .code-example {
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            text-align: left;
+            border-left: 4px solid #4ecdc4;
+        }
+
+        .box-model-demo {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .box-visual {
+            width: 300px;
+            height: 200px;
+            margin: 20px auto;
+            position: relative;
+            background: #ff6b6b;
+            border: 10px solid #4ecdc4;
+            padding: 20px;
+            box-sizing: content-box;
+        }
+
+        .box-visual::before {
+            content: 'Content';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-weight: bold;
+        }
+
+        .flexbox-demo {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .flex-item {
+            background: #ff6b6b;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            min-width: 120px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .flex-item:hover {
+            transform: scale(1.1);
+        }
+
+        .project-section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .project-checklist {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .checklist-item {
+            background: rgba(76, 175, 80, 0.2);
+            border-radius: 10px;
+            padding: 20px;
+            border-left: 4px solid #4caf50;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 15px;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-btn {
+            background: #4ecdc4;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            background: #45b7b8;
+            transform: translateY(-2px);
+        }
+
+        .nav-btn.active {
+            background: #ff6b6b;
+        }
+
+        .slide-counter {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px 20px;
+            border-radius: 25px;
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 20px rgba(255, 107, 107, 0.5); }
+            to { text-shadow: 0 0 40px rgba(78, 205, 196, 0.8); }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animated {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        @media (max-width: 768px) {
+            .slide h1 { font-size: 2.5rem; }
+            .slide h2 { font-size: 2rem; }
+            .slide h3 { font-size: 1.8rem; }
+            .slide p { font-size: 1.1rem; }
+            .slide { padding: 20px; }
+            .css-types { flex-direction: column; align-items: center; }
+            .flexbox-demo { flex-direction: column; }
+            .navigation { bottom: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation-container">
+        <div class="slide-counter">
+            <span id="current-slide">1</span> / <span id="total-slides">9</span>
+        </div>
+
+        <!-- Slide 1: Title -->
+        <div class="slide active">
+            <h1>Week 2: Styling with CSS</h1>
+            <p style="font-size: 1.8rem; margin-bottom: 30px;">Making Your Website Beautiful & Mobile-Friendly</p>
+            <div style="font-size: 1.2rem; opacity: 0.9;">
+                <p>🎨 Transform plain HTML into stunning designs</p>
+                <p>📱 Create responsive layouts that work everywhere</p>
+                <p>✨ Add animations and interactive elements</p>
+            </div>
+        </div>
+
+        <!-- Slide 2: Learning Outcomes -->
+        <div class="slide">
+            <h2>Learning Outcomes</h2>
+            <div class="learning-outcomes">
+                <div class="outcome-card">
+                    <h3>🎨 CSS Styling</h3>
+                    <p>Master the art of styling HTML pages with colors, fonts, and layouts</p>
+                </div>
+                <div class="outcome-card">
+                    <h3>📦 Layout Basics</h3>
+                    <p>Understand the box model and flexbox for professional layouts</p>
+                </div>
+                <div class="outcome-card">
+                    <h3>✨ Visual Design</h3>
+                    <p>Apply colors, fonts, spacing, and basic animations effectively</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: CSS Types -->
+        <div class="slide">
+            <h2>CSS Implementation Methods</h2>
+            <div class="css-types">
+                <div class="css-type">
+                    <h4>Inline CSS</h4>
+                    <p>Styles applied directly to HTML elements</p>
+                    <div class="code-example">
+&lt;p style="color: blue;"&gt;
+    Blue text
+&lt;/p&gt;
+                    </div>
+                    <p><strong>Use:</strong> Quick fixes, testing</p>
+                </div>
+                <div class="css-type">
+                    <h4>Internal CSS</h4>
+                    <p>Styles defined in the &lt;head&gt; section</p>
+                    <div class="code-example">
+&lt;style&gt;
+  p { color: blue; }
+&lt;/style&gt;
+                    </div>
+                    <p><strong>Use:</strong> Single page styling</p>
+                </div>
+                <div class="css-type">
+                    <h4>External CSS</h4>
+                    <p>Separate .css file linked to HTML</p>
+                    <div class="code-example">
+&lt;link rel="stylesheet" 
+      href="styles.css"&gt;
+                    </div>
+                    <p><strong>Use:</strong> Professional projects</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Selectors -->
+        <div class="slide">
+            <h2>CSS Selectors: Target Your Elements</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; margin-top: 40px;">
+                <div class="outcome-card">
+                    <h3>Element Selectors</h3>
+                    <div class="code-example">
+p { color: red; }
+h1 { font-size: 2rem; }
+                    </div>
+                    <p>Targets all elements of a specific type</p>
+                </div>
+                <div class="outcome-card">
+                    <h3>Class Selectors</h3>
+                    <div class="code-example">
+.highlight { 
+  background: yellow; 
+}
+.btn { padding: 10px; }
+                    </div>
+                    <p>Targets elements with specific class</p>
+                </div>
+                <div class="outcome-card">
+                    <h3>ID Selectors</h3>
+                    <div class="code-example">
+#header { 
+  background: blue; 
+}
+#main-content { ... }
+                    </div>
+                    <p>Targets unique elements with specific ID</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Box Model -->
+        <div class="slide">
+            <h2>The CSS Box Model</h2>
+            <p>Every element is a box with four areas:</p>
+            <div class="box-model-demo">
+                <div class="box-visual"></div>
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 30px;">
+                    <div>
+                        <h4 style="color: #4ecdc4;">Content</h4>
+                        <p>The actual content (text, images)</p>
+                    </div>
+                    <div>
+                        <h4 style="color: #4ecdc4;">Padding</h4>
+                        <p>Space between content and border</p>
+                    </div>
+                    <div>
+                        <h4 style="color: #4ecdc4;">Border</h4>
+                        <p>The border around the padding</p>
+                    </div>
+                    <div>
+                        <h4 style="color: #4ecdc4;">Margin</h4>
+                        <p>Space outside the border</p>
+                    </div>
+                </div>
+            </div>
+            <div class="code-example">
+.box {
+  width: 300px;
+  padding: 20px;
+  border: 10px solid blue;
+  margin: 15px;
+}
+            </div>
+        </div>
+
+        <!-- Slide 6: Flexbox -->
+        <div class="slide">
+            <h2>Flexbox: Modern Layout Solution</h2>
+            <p>Create flexible, responsive layouts with ease!</p>
+            <div class="flexbox-demo">
+                <div class="flex-item">Item 1</div>
+                <div class="flex-item">Item 2</div>
+                <div class="flex-item">Item 3</div>
+            </div>
+            <div class="code-example">
+.container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.item {
+  flex: 1;
+  margin: 10px;
+}
+            </div>
+            <p><strong>Key Properties:</strong> justify-content, align-items, flex-direction, flex-wrap</p>
+        </div>
+
+        <!-- Slide 7: Responsive Design -->
+        <div class="slide">
+            <h2>Responsive Design with Media Queries</h2>
+            <p>Make your website look great on all devices!</p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin: 40px 0;">
+                <div class="outcome-card">
+                    <h3>📱 Mobile First</h3>
+                    <p>Design for mobile, then enhance for larger screens</p>
+                </div>
+                <div class="outcome-card">
+                    <h3>🖥️ Breakpoints</h3>
+                    <p>Define different styles for different screen sizes</p>
+                </div>
+            </div>
+            <div class="code-example">
+/* Mobile styles (default) */
+.container { width: 100%; }
+
+/* Tablet and up */
+@media (min-width: 768px) {
+  .container { width: 750px; }
+}
+
+/* Desktop and up */
+@media (min-width: 1024px) {
+  .container { width: 1000px; }
+}
+            </div>
+        </div>
+
+        <!-- Slide 8: Project Task -->
+        <div class="slide">
+            <h2>🚀 Project Task</h2>
+            <div class="project-section">
+                <h3>Upgrade Your 'About Me' Page</h3>
+                <p>Transform your basic HTML page into a responsive profile site!</p>
+                <div class="project-checklist">
+                    <div class="checklist-item">
+                        <h4>✅ Responsive Layout</h4>
+                        <p>Works on mobile & desktop</p>
+                    </div>
+                    <div class="checklist-item">
+                        <h4>✅ Styled Navigation</h4>
+                        <p>Professional menu system</p>
+                    </div>
+                    <div class="checklist-item">
+                        <h4>✅ Color Scheme</h4>
+                        <p>Consistent, appealing colors</p>
+                    </div>
+                    <div class="checklist-item">
+                        <h4>✅ Typography</h4>
+                        <p>Beautiful fonts and spacing</p>
+                    </div>
+                    <div class="checklist-item">
+                        <h4>✅ Box Model</h4>
+                        <p>Proper margins and padding</p>
+                    </div>
+                    <div class="checklist-item">
+                        <h4>✅ Flexbox Layout</h4>
+                        <p>Modern, flexible positioning</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Summary -->
+        <div class="slide">
+            <h2>Ready to Style the Web! 🎨</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin: 40px 0;">
+                <div class="outcome-card">
+                    <h3>🎯 What You've Learned</h3>
+                    <p>CSS fundamentals, selectors, box model, flexbox, and responsive design</p>
+                </div>
+                <div class="outcome-card">
+                    <h3>🛠️ Next Steps</h3>
+                    <p>Apply these skills to create your responsive profile site</p>
+                </div>
+                <div class="outcome-card">
+                    <h3>💡 Pro Tips</h3>
+                    <p>Start mobile-first, use flexbox for layouts, and test on different devices</p>
+                </div>
+            </div>
+            <p style="font-size: 1.5rem; margin-top: 30px;">Happy coding! Your website is about to look amazing! ✨</p>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" onclick="previousSlide()">← Previous</button>
+        <button class="nav-btn active" onclick="goToSlide(0)">1</button>
+        <button class="nav-btn" onclick="goToSlide(1)">2</button>
+        <button class="nav-btn" onclick="goToSlide(2)">3</button>
+        <button class="nav-btn" onclick="goToSlide(3)">4</button>
+        <button class="nav-btn" onclick="goToSlide(4)">5</button>
+        <button class="nav-btn" onclick="goToSlide(5)">6</button>
+        <button class="nav-btn" onclick="goToSlide(6)">7</button>
+        <button class="nav-btn" onclick="goToSlide(7)">8</button>
+        <button class="nav-btn" onclick="goToSlide(8)">9</button>
+        <button class="nav-btn" onclick="nextSlide()">Next →</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        const navBtns = document.querySelectorAll('.nav-btn');
+
+        document.getElementById('total-slides').textContent = totalSlides;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            
+            // Update slide counter
+            document.getElementById('current-slide').textContent = currentSlide + 1;
+            
+            // Update navigation buttons
+            navBtns.forEach((btn, index) => {
+                if (index > 0 && index < navBtns.length - 1) {
+                    btn.classList.toggle('active', index - 1 === currentSlide);
+                }
+            });
+
+            // Add animation to elements
+            setTimeout(() => {
+                const activeSlide = slides[currentSlide];
+                const elements = activeSlide.querySelectorAll('.outcome-card, .css-type, .checklist-item');
+                elements.forEach((el, index) => {
+                    setTimeout(() => {
+                        el.classList.add('animated');
+                    }, index * 200);
+                });
+            }, 200);
+        }
+
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+
+        function previousSlide() {
+            showSlide(currentSlide - 1);
+        }
+
+        function goToSlide(n) {
+            showSlide(n);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                previousSlide();
+            }
+        });
+
+        // Auto-advance (optional - remove if not wanted)
+        // setInterval(nextSlide, 10000); // Advance every 10 seconds
+
+        // Initialize
+        showSlide(0);
+    </script>
+</body>
+</html>
